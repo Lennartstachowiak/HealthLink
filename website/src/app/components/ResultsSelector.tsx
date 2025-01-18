@@ -28,12 +28,7 @@ interface DropdownItemProps {
   title: string;
 }
 
-function DropdownItem({
-  value,
-  isSelected,
-  onSelect,
-  title,
-}: DropdownItemProps) {
+function DropdownItem({ isSelected, onSelect, title }: DropdownItemProps) {
   return (
     <div
       onClick={onSelect}
