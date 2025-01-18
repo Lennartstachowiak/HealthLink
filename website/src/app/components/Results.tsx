@@ -1,7 +1,10 @@
+"use client";
+
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { RecommendedActions } from "./RecommendedActions";
 import { Result } from "@/types/results";
+import ResultSummary from "./ResultSummary";
 
 interface MetricProps {
   label: string;
@@ -49,7 +52,7 @@ interface TestResultsProps {
   result: Result;
 }
 
-export function TestResults({ result }: TestResultsProps) {
+export function Results({ result }: TestResultsProps) {
   const { updatedAt, title, summary, recommendedAtions, metrics } = result;
   return (
     <Card className="rounded-2xl shadow-none">
@@ -67,14 +70,11 @@ export function TestResults({ result }: TestResultsProps) {
         </Button>
       </CardHeader>
       <CardContent>
+        <ResultSummary summary={summary} />
         <div className="grid gap-4 md:grid-cols-3">
           {metrics.map((metric, index) => (
             <Metric key={`metric_${index}`} {...metric} />
           ))}
-        </div>
-        <div className="mt-6 rounded-lg bg-gray-50 p-6">
-          <h4 className="mb-2 text-lg font-medium text-gray-900">Summary</h4>
-          <p className="text-gray-700">{summary}</p>
         </div>
         <RecommendedActions recommendedActions={recommendedAtions} />
       </CardContent>

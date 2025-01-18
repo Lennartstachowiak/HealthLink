@@ -1,12 +1,20 @@
+"use client";
+
 import { Card, CardHeader } from "@/components/ui/card";
 import { CalendarDays } from "lucide-react";
+import { useEffect, useState } from "react";
 
 export function WelcomeBanner() {
-  const today = new Date().toLocaleDateString("en-US", {
-    weekday: "long",
-    month: "long",
-    day: "numeric",
-  });
+  const [today, setToday] = useState("");
+
+  useEffect(() => {
+    const formattedDate = new Date().toLocaleDateString("en-US", {
+      weekday: "long",
+      month: "long",
+      day: "numeric",
+    });
+    setToday(formattedDate);
+  }, []);
   return (
     <Card className="rounded-2xl shadow-none ">
       <CardHeader>

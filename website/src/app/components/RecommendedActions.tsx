@@ -18,6 +18,35 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import { RecommendedAction } from "@/types/results";
 
+const getColorCodes = (color: string) => {
+  switch (color) {
+    case "green":
+      return {
+        bg: "bg-green-100",
+        text: "text-green-600",
+        buttonBg: "bg-green-50",
+      };
+    case "blue":
+      return {
+        bg: "bg-blue-100",
+        text: "text-blue-600",
+        buttonBg: "bg-blue-50",
+      };
+    case "red":
+      return {
+        bg: "bg-red-100",
+        text: "text-red-600",
+        buttonBg: "bg-red-50",
+      };
+    default:
+      return {
+        bg: "bg-gray-100",
+        text: "text-gray-600",
+        buttonBg: "bg-gray-50",
+      };
+  }
+};
+
 interface RecommendedActionItemProps {
   index: number;
   header: string;
@@ -31,36 +60,35 @@ function RecommendedActionItem(props: RecommendedActionItemProps) {
   const { index, header, text, buttenText, iconType, onClick } = props;
   const Icon = getIcon(iconType);
   const getColor = (index: number) => {
-    if (index % 3 === 0) {
-      return "green";
-    } else if (index % 2 === 0) {
-      return "blue";
-    } else {
-      return "red";
-    }
+    const colors = ["green", "blue", "red"];
+    return colors[index % colors.length];
   };
   const color = getColor(index);
+  const selectedColor = getColorCodes(color);
+
   return (
     <Card className="rounded-2xl border p-6 shadow-none">
       <CardTitle className="flex flex-row items-center gap-2 p-0 mb-2 text-lg font-medium text-gray-900">
         <div
-          className={`size-10 rounded-full flex items-center justify-center bg-${color}-100`}
+          className={`size-10 rounded-full flex items-center justify-center ${selectedColor.bg}`}
         >
-          <Icon className={`h-4 w-4 text-${color}-600`} />
+          <Icon className={`h-4 w-4 ${selectedColor.text}`} />
         </div>
         {header}
       </CardTitle>
-      <CardContent className="p-0 mb-6 text-sm text-gray-600">
-        {text}
+      <CardContent className="p-0 flex flex-col flex-grow">
+        <div className="mb-6 text-sm text-gray-600 flex-grow">{text}</div>
+        <div className="mt-auto">
+          <Button
+            variant="outline"
+            className={`w-full gap-2 rounded-lg px-4 py-2 text-sm font-medium ${selectedColor.text}`}
+            onClick={onClick}
+          >
+            <Icon className={`h-4 w-4 ${selectedColor.text}`} />
+            {buttenText}
+          </Button>
+        </div>
       </CardContent>
-      <Button
-        variant="outline"
-        className={`w-full gap-2 rounded-lg ${color}-50 px-4 py-2 text-sm font-medium text-${color}-600`}
-        onClick={onClick}
-      >
-        <Icon className={`h-4 w-4 text-${color}-600`} />
-        {buttenText}
-      </Button>
     </Card>
   );
 }
