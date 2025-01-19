@@ -8,7 +8,7 @@ import { SuggestedQuestions } from "./SuggestedQuestions";
 import { Card } from "@/components/ui/card";
 import { sendMessage } from "../actions";
 import { Result } from "@/types/results";
-import { StatusChip } from "./StatusChip";
+import { LoadingChip } from "./LoadingChip";
 
 interface Message {
   id: number;
@@ -153,7 +153,7 @@ export function ChatInput(props: ChatInputProps) {
                       <p className="text-sm text-gray-800">{message.text}</p>
                     </div>
                   ))}
-                  <StatusChip isLoading={loading} />
+                  <LoadingChip isLoading={loading} />
                   <div ref={messagesEndRef} />
                 </div>
               ))}

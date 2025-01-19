@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button";
 import { RecommendedActions } from "./RecommendedActions";
 import { Result } from "@/types/results";
 import ResultSummary from "./ResultSummary";
+import { MetricDrawer } from "./MetricDrawer";
+import StatusChip from "./StatusChip";
 
 interface MetricProps {
   label: string;
@@ -15,30 +17,11 @@ interface MetricProps {
 }
 
 function Metric({ label, status, description, unit }: MetricProps) {
-  const getStatusColor = (value: string) => {
-    switch (value.toLowerCase()) {
-      case "normal":
-        return "bg-green-50 text-green-600";
-      case "high":
-        return "bg-orange-50 text-orange-600";
-      case "low":
-        return "bg-orange-50 text-orange-600";
-      default:
-        return "bg-gray-50 text-gray-600";
-    }
-  };
-
   return (
     <Card className="rounded-2xl border p-4 shadow-none">
       <CardHeader className="p-0 mb-4 flex flex-row items-center justify-between">
         <span className="text-sm text-gray-600">{unit}</span>
-        <span
-          className={`text-sm drop-shadow-none px-2 py-1 rounded-2xl ${getStatusColor(
-            status
-          )} `}
-        >
-          {status}
-        </span>
+        <StatusChip status={status} />
       </CardHeader>
       <CardContent className="p-0">
         <h3 className="mb-2 text-lg font-medium text-gray-900">{label}</h3>
@@ -73,7 +56,9 @@ export function Results({ result }: TestResultsProps) {
         <ResultSummary summary={summary} />
         <div className="grid gap-4 md:grid-cols-3">
           {metrics.map((metric, index) => (
-            <Metric key={`metric_${index}`} {...metric} />
+            <MetricDrawer key={`metric_drawer_${index}`} metric={metric}>
+              <Metric key={`metric_${index}`} {...metric} />
+            </MetricDrawer>
           ))}
         </div>
         <RecommendedActions recommendedActions={recommendedActions} />
