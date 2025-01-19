@@ -18,6 +18,7 @@ export async function getResults() {
 }
 
 export async function sendMessage(message: string, result: Result) {
+  console.log(message, result);
   const response = await fetch(`${BACKEND_URL}/send_message`, {
     method: "POST",
     headers: {
@@ -25,7 +26,6 @@ export async function sendMessage(message: string, result: Result) {
     },
     body: JSON.stringify({
       message,
-      result,
     }),
   });
 
