@@ -17,8 +17,6 @@ import {
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import { RecommendedAction } from "@/types/results";
-import { useState } from "react";
-import { Snackbar } from "./Snackbar";
 
 const getColorCodes = (color: string) => {
   switch (color) {
@@ -60,8 +58,7 @@ interface RecommendedActionItemProps {
 }
 
 function RecommendedActionItem(props: RecommendedActionItemProps) {
-  const { index, header, text, info, link, buttonText, iconType } = props;
-  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const { index, header, text, link, buttonText, iconType } = props;
   const Icon = getIcon(iconType);
   const getColor = (index: number) => {
     const colors = ["green", "blue", "red"];
@@ -97,11 +94,6 @@ function RecommendedActionItem(props: RecommendedActionItemProps) {
             <Icon className={`h-4 w-4 ${selectedColor.text}`} />
             {buttonText}
           </Button>
-          <Snackbar
-            setOpen={setSnackbarOpen}
-            open={snackbarOpen}
-            text={info || ""}
-          />
         </div>
       </CardContent>
     </Card>
