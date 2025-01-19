@@ -1,9 +1,8 @@
 from fastapi import APIRouter, status
 from app.schemas import ChatRequest
 from fastapi.responses import JSONResponse
-from app.services import get_text
+from app.services import get_message_response
 from app.results import results
-import json
 
 router = APIRouter()
 
@@ -21,10 +20,10 @@ async def get_patient():
     )
 
 
-@router.post("/chat")
-async def chat(chat_request: ChatRequest):
-    text = get_text(chat_request)
+@router.post("/send_message")
+async def send_message(chat_request: ChatRequest):
+    response = get_message_response(chat_request)
     return JSONResponse(
         status_code=status.HTTP_200_OK,
-        content={"text": text}
+        content={"data": response}
     )

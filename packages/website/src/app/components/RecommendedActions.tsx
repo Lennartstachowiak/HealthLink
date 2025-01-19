@@ -51,12 +51,12 @@ interface RecommendedActionItemProps {
   index: number;
   header: string;
   text: string;
-  buttenText: string;
+  buttonText: string;
   iconType: string;
 }
 
 function RecommendedActionItem(props: RecommendedActionItemProps) {
-  const { index, header, text, buttenText, iconType } = props;
+  const { index, header, text, buttonText, iconType } = props;
   const Icon = getIcon(iconType);
   const getColor = (index: number) => {
     const colors = ["green", "blue", "red"];
@@ -84,7 +84,7 @@ function RecommendedActionItem(props: RecommendedActionItemProps) {
             onClick={() => {}}
           >
             <Icon className={`h-4 w-4 ${selectedColor.text}`} />
-            {buttenText}
+            {buttonText}
           </Button>
         </div>
       </CardContent>

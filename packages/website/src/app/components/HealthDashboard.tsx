@@ -28,7 +28,10 @@ export default function HealthDashboard(props: HealthDashboardProps) {
           <WelcomeBanner />
           <Results result={result} />
         </main>
-        <ChatInput suggestedQuestions={result.suggestedQuestions} />
+        <ChatInput
+          suggestedQuestions={result.suggestedQuestions}
+          result={result}
+        />
       </div>
     );
   }

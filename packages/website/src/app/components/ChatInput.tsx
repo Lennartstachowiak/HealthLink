@@ -6,6 +6,9 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { SuggestedQuestions } from "./SuggestedQuestions";
 import { Card } from "@/components/ui/card";
+import { sendMessage } from "../actions";
+import { Result } from "@/types/results";
+import { StatusChip } from "./StatusChip";
 
 interface Message {
   id: number;
@@ -15,14 +18,16 @@ interface Message {
 
 interface ChatInputProps {
   suggestedQuestions: string[];
+  result: Result;
 }
 
 export function ChatInput(props: ChatInputProps) {
-  const { suggestedQuestions } = props;
+  const { suggestedQuestions, result } = props;
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [isMinimized, setIsMinimized] = useState(true);
   const [lastScrollTop, setLastScrollTop] = useState(0);
+  const [loading, setLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
@@ -60,26 +65,32 @@ export function ChatInput(props: ChatInputProps) {
   }, [lastScrollTop]);
 
   const handleSend = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!input.trim()) return;
+    try {
+      e.preventDefault();
+      if (!input.trim()) return;
 
-    const userMessage: Message = {
-      id: Date.now(),
-      text: input,
-      sender: "User",
-    };
-    setMessages((prev) => [...prev, userMessage]);
-    setInput("");
+      setLoading(true);
 
-    // Simulate agent response
-    setTimeout(() => {
+      const userMessage: Message = {
+        id: Date.now(),
+        text: input,
+        sender: "User",
+      };
+      setMessages((prev) => [...prev, userMessage]);
+      setInput("");
+
+      const messageAnswer = await sendMessage(userMessage.text, result);
       const agentMessage: Message = {
         id: Date.now(),
-        text: "Thank you for your message. How can I assist you with your health results today?",
+        text: messageAnswer,
         sender: "Agent",
       };
       setMessages((prev) => [...prev, agentMessage]);
-    }, 1000);
+    } catch (error) {
+      console.error("Failed to send message:", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleSuggestionClick = (suggestion: string) => {
@@ -124,26 +135,28 @@ export function ChatInput(props: ChatInputProps) {
               suggestedQuestions={suggestedQuestions}
               onClick={handleSuggestionClick}
             />
-            {messages.length > 0 && (
-              <div className="mb-4 max-h-96 overflow-y-auto rounded-lg border bg-gray-50 p-4">
-                {messages.map((message) => (
-                  <div
-                    key={message.id}
-                    className={`mb-2 rounded-lg p-2 ${
-                      message.sender === "User"
-                        ? "ml-auto bg-blue-100 text-right"
-                        : "mr-auto bg-white"
-                    }`}
-                  >
-                    <p className="text-xs font-semibold text-gray-600">
-                      {message.sender}
-                    </p>
-                    <p className="text-sm text-gray-800">{message.text}</p>
-                  </div>
-                ))}
-                <div ref={messagesEndRef} />
-              </div>
-            )}
+            {messages.length > 0 ||
+              (loading && (
+                <div className="mb-4 max-h-96 overflow-y-auto rounded-lg border bg-gray-50 p-4">
+                  {messages.map((message) => (
+                    <div
+                      key={message.id}
+                      className={`mb-2 rounded-lg p-2 ${
+                        message.sender === "User"
+                          ? "ml-auto bg-blue-100 text-right"
+                          : "mr-auto bg-white"
+                      }`}
+                    >
+                      <p className="text-xs font-semibold text-gray-600">
+                        {message.sender}
+                      </p>
+                      <p className="text-sm text-gray-800">{message.text}</p>
+                    </div>
+                  ))}
+                  <StatusChip isLoading={loading} />
+                  <div ref={messagesEndRef} />
+                </div>
+              ))}
 
             {/* Input */}
             <form onSubmit={handleSend} className="flex gap-2 items-center">

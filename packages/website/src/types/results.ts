@@ -2,7 +2,7 @@
 export interface RecommendedAction {
   header: string;
   text: string;
-  buttenText: string; // Consider renaming to "buttonText" for clarity
+  buttonText: string;
   iconType: string;
 }
 
