@@ -4,7 +4,6 @@ export interface RecommendedAction {
   text: string;
   buttenText: string; // Consider renaming to "buttonText" for clarity
   iconType: string;
-  onClick: () => void;
 }
 
 // Represents each metric associated with a result
@@ -21,7 +20,7 @@ export interface Result {
   updatedAt: string;
   title: string;
   summary: string;
-  recommendedAtions: RecommendedAction[];
+  recommendedActions: RecommendedAction[];
   suggestedQuestions: string[];
   metrics: Metric[];
 }

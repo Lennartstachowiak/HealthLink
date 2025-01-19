@@ -53,7 +53,7 @@ interface TestResultsProps {
 }
 
 export function Results({ result }: TestResultsProps) {
-  const { updatedAt, title, summary, recommendedAtions, metrics } = result;
+  const { updatedAt, title, summary, recommendedActions, metrics } = result;
   return (
     <Card className="rounded-2xl shadow-none">
       <CardHeader className="flex flex-row items-center justify-between">
@@ -76,7 +76,7 @@ export function Results({ result }: TestResultsProps) {
             <Metric key={`metric_${index}`} {...metric} />
           ))}
         </div>
-        <RecommendedActions recommendedActions={recommendedAtions} />
+        <RecommendedActions recommendedActions={recommendedActions} />
       </CardContent>
     </Card>
   );

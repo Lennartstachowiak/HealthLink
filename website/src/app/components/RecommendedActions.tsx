@@ -53,11 +53,10 @@ interface RecommendedActionItemProps {
   text: string;
   buttenText: string;
   iconType: string;
-  onClick: () => void;
 }
 
 function RecommendedActionItem(props: RecommendedActionItemProps) {
-  const { index, header, text, buttenText, iconType, onClick } = props;
+  const { index, header, text, buttenText, iconType } = props;
   const Icon = getIcon(iconType);
   const getColor = (index: number) => {
     const colors = ["green", "blue", "red"];
@@ -82,7 +81,7 @@ function RecommendedActionItem(props: RecommendedActionItemProps) {
           <Button
             variant="outline"
             className={`w-full gap-2 rounded-lg px-4 py-2 text-sm font-medium ${selectedColor.text}`}
-            onClick={onClick}
+            onClick={() => {}}
           >
             <Icon className={`h-4 w-4 ${selectedColor.text}`} />
             {buttenText}

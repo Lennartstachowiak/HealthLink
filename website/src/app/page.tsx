@@ -1,27 +1,31 @@
 "use client";
 
-import { Header } from "./components/Header";
-import { WelcomeBanner } from "./components/WelcomeBanner";
-import { Results } from "./components/Results";
-import { ChatInput } from "./components/ChatInput";
-import results from "../results";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getResults } from "./actions";
+import HealthDashboard from "./components/HealthDashboard";
 import { Result } from "@/types/results";
 
-export default function HealthDashboard() {
-  const [result, setResult] = useState<Result>(results[0] as Result);
-  return (
-    <div className="min-h-screen bg-gray-50">
-      <Header
-        result={result}
-        setResult={setResult}
-        results={results as Result[]}
-      />
-      <main className="mx-auto max-w-[1200px] space-y-6 p-6">
-        <WelcomeBanner />
-        <Results result={result} />
-      </main>
-      <ChatInput suggestedQuestions={result.suggestedQuestions} />
-    </div>
-  );
+export default function HomePage() {
+  const [results, setResults] = useState<Result[] | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchResults = async () => {
+      const results = await getResults();
+      setResults(results);
+      setLoading(false);
+    };
+
+    fetchResults();
+  }, []);
+
+  if (loading || !results) {
+    return (
+      <div className="flex min-h-screen items-center justify-center">
+        <p className="text-lg font-medium">Loading...</p>
+      </div>
+    );
+  }
+
+  return <HealthDashboard results={results} />;
 }
