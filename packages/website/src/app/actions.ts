@@ -33,7 +33,6 @@ export async function sendMessage(message: string, result: Result) {
     throw new Error("Failed to fetch results");
   }
   const json = await response.json();
-  console.log(json);
   return json.data;
 }
 

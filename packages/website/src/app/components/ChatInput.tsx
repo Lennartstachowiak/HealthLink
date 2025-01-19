@@ -38,6 +38,10 @@ export function ChatInput(props: ChatInputProps) {
 
   useEffect(scrollToBottom, [messages]);
 
+  useEffect(() => {
+    setMessages([]);
+  }, [result]); // Dependency on `result`
+
   // Open chat only when scrolling down to the bottom, close when scrolling up
   useEffect(() => {
     const handleScroll = () => {
@@ -82,7 +86,6 @@ export function ChatInput(props: ChatInputProps) {
       setInput("");
 
       const messageAnswer = await sendMessage(userMessage.text, result);
-      console.log("messageAnswer", messageAnswer);
       const agentMessage: Message = {
         id: Date.now(),
         text: messageAnswer,
