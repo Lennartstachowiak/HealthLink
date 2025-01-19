@@ -64,7 +64,7 @@ function RecommendedActionItem(props: RecommendedActionItemProps) {
   const { index, header, text, link, buttonText, iconType } = props;
   const Icon = getIcon(iconType);
   const getColor = (index: number) => {
-    const colors = ["green", "blue", "red"];
+    const colors = ["green", "blue", "red", "yellow", "purple", "teal"];
     return colors[index % colors.length];
   };
   const color = getColor(index);
