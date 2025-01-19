@@ -1,0 +1,42 @@
+[
+    {
+        "question": "What were the main symptoms I had during my latest visit?",
+        "expected_answer": "You presented with worsening shortness of breath, intermittent chest tightness, and swelling in your lower extremities."
+    },
+    {
+        "question": "Can you tell me what medications I’m currently taking and their doses?",
+        "expected_answer": "You are currently taking Metformin 1,000 mg twice daily, Insulin Glargine 20 units at bedtime, Lisinopril 20 mg daily, Amlodipine 10 mg daily, Atorvastatin 40 mg nightly, and a Multivitamin once daily."
+    },
+    {
+        "question": "What lifestyle changes do I need to make to manage my diabetes and high blood pressure?",
+        "expected_answer": "You should consult with a dietitian for a tighter glycemic control and weight reduction plan, aim for 30 minutes of moderate exercise at least 5 days a week, and attend weekly physical therapy sessions focusing on core strengthening and gentle stretching for your low back pain."
+    },
+    {
+        "question": "What did my most recent chest X-ray show?",
+        "expected_answer": "Your chest X-ray showed mild cardiomegaly and prominent pulmonary vasculature, but no acute infiltrates or pleural effusion."
+    },
+    {
+        "question": "What does an ejection fraction of 55% mean for my heart?",
+        "expected_answer": "An ejection fraction of 55% is within the normal range, which means your heart’s pumping ability is normal."
+    },
+    {
+        "question": "What changes were made to my diabetes treatment plan?",
+        "expected_answer": "Your nightly Insulin Glargine dose was increased to 25 units, and you were advised to strictly monitor your glucose levels."
+    },
+    {
+        "question": "What did my lumbar spine MRI show, and how does it relate to my back pain?",
+        "expected_answer": "Your MRI showed degenerative disc disease at L4-L5 and mild spinal stenosis, which are consistent with your history of chronic low back pain."
+    },
+    {
+        "question": "Based on my family history, what health conditions am I at risk for?",
+        "expected_answer": "You are at increased risk for heart disease and diabetes due to your family history."
+    },
+    {
+        "question": "What are my target levels for LDL cholesterol and blood pressure?",
+        "expected_answer": "Your LDL cholesterol should be below 100 mg/dL, and your blood pressure should be below 140/90 mmHg."
+    },
+    {
+        "question": "What follow-up tests and specialist visits do I need?",
+        "expected_answer": "You need to repeat your A1c and lipid panel in 3 months, and if your signs of heart failure worsen, you should see a cardiologist."
+    }
+]

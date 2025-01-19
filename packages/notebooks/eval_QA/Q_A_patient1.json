@@ -1,0 +1,42 @@
+[
+  {
+    "question": "What skin conditions have I been diagnosed with so far?",
+    "expected_answer": "You have had mild inflammatory acne, irritant contact dermatitis, a benign mole on your upper left arm, and seborrheic dermatitis."
+  },
+  {
+    "question": "What treatments were recommended for my dry hands and elbows?",
+    "expected_answer": "You were advised to use emollient creams containing ceramides, avoid harsh soaps, and wear gloves when cleaning to protect your skin."
+  },
+  {
+    "question": "What treatment did I receive for my itchy scalp and dandruff?",
+    "expected_answer": "You were prescribed a ketoconazole shampoo to be used twice weekly for seborrheic dermatitis."
+  },
+  {
+    "question": "How was my recent sunburn treated?",
+    "expected_answer": "You were instructed to apply aloe vera gel, use cool compresses, and follow strict sun protection with SPF 50+."
+  },
+  {
+    "question": "How can I prevent future sun damage?",
+    "expected_answer": "You should avoid peak sun hours, regularly apply high SPF sunscreen, and monitor your skin for any new or changing spots."
+  },
+  {
+    "question": "What guidance was provided for the fine lines on my forehead?",
+    "expected_answer": "You were recommended to use a retinol-based skincare routine at night and apply sunscreen daily to protect from further photoaging."
+  },
+  {
+    "question": "What were the results of my skin biopsy on my back?",
+    "expected_answer": "It showed atypical melanocytic hyperplasia, which was benign and not cancerous."
+  },
+  {
+    "question": "What advice did I receive about the mild Candida on my toenail?",
+    "expected_answer": "You were advised to maintain good foot hygiene and monitor for any changes, as the growth was mild and non-invasive."
+  },
+  {
+    "question": "How should I keep track of my moles going forward?",
+    "expected_answer": "You should do monthly self-checks, looking for changes in size, shape, or color, and report anything unusual to your dermatologist."
+  },
+  {
+    "question": "When should I come in for my next check-up if everything is stable?",
+    "expected_answer": "You were advised to return for a follow-up in about 12 months unless new symptoms appear before then."
+  }
+]
