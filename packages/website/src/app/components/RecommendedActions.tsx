@@ -13,6 +13,9 @@ import {
   Thermometer,
   BedDouble,
   Info,
+  AlertTriangle,
+  Sun,
+  BookOpen,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
@@ -105,18 +108,22 @@ const getIcon = (type: string) => {
     case "calendar":
       return Calendar;
     case "reminder":
+    case "bell":
       return Bell;
     case "diet":
+    case "nutrition":
       return Salad;
     case "heart":
       return Heart;
     case "checkup":
       return Stethoscope;
     case "medication":
+    case "pill":
       return Pill;
     case "blood":
+    case "droplet":
       return Droplet;
-    case "nutrition":
+    case "apple":
       return Apple;
     case "exercise":
       return Dumbbell;
@@ -124,8 +131,12 @@ const getIcon = (type: string) => {
       return Thermometer;
     case "sleep":
       return BedDouble;
-    case "bell":
-      return Bell;
+    case "alert-triangle":
+      return AlertTriangle;
+    case "sun":
+      return Sun;
+    case "book":
+      return BookOpen;
     default:
       return Info;
   }
