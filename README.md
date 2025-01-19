@@ -6,4 +6,4 @@ Welcome to the HealthLink Mono Repository. This repository contains the codebase
 
 - **Backend**: Contains the server-side code and APIs.
 - **Website**: Contains the client-side code and user interfaces.
-- **notebookd**: Contains python notebooks.
+- **notebooks**: Contains python notebooks.
