@@ -127,8 +127,6 @@ def ask_question(question):
     )
     # Ensure `results["simplification_llm"]["replies"][0]` is JSON serializable
     reply = results["simplification_llm"]["replies"][0]
-    print(reply)
-    print(reply.text)
 
     # Return the reply as JSON
     return reply.text

@@ -17,6 +17,8 @@ import {
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import { RecommendedAction } from "@/types/results";
+import { useState } from "react";
+import { Snackbar } from "./Snackbar";
 
 const getColorCodes = (color: string) => {
   switch (color) {
@@ -51,12 +53,15 @@ interface RecommendedActionItemProps {
   index: number;
   header: string;
   text: string;
+  info?: string;
+  link?: string;
   buttonText: string;
   iconType: string;
 }
 
 function RecommendedActionItem(props: RecommendedActionItemProps) {
-  const { index, header, text, buttonText, iconType } = props;
+  const { index, header, text, info, link, buttonText, iconType } = props;
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
   const Icon = getIcon(iconType);
   const getColor = (index: number) => {
     const colors = ["green", "blue", "red"];
@@ -64,6 +69,12 @@ function RecommendedActionItem(props: RecommendedActionItemProps) {
   };
   const color = getColor(index);
   const selectedColor = getColorCodes(color);
+
+  const handleOnClick = () => {
+    if (link && link?.length > 0) {
+      window.open(link, "_blank");
+    }
+  };
 
   return (
     <Card className="rounded-2xl border p-6 shadow-none">
@@ -81,11 +92,16 @@ function RecommendedActionItem(props: RecommendedActionItemProps) {
           <Button
             variant="outline"
             className={`w-full gap-2 rounded-lg px-4 py-2 text-sm font-medium ${selectedColor.text}`}
-            onClick={() => {}}
+            onClick={handleOnClick}
           >
             <Icon className={`h-4 w-4 ${selectedColor.text}`} />
             {buttonText}
           </Button>
+          <Snackbar
+            setOpen={setSnackbarOpen}
+            open={snackbarOpen}
+            text={info || ""}
+          />
         </div>
       </CardContent>
     </Card>

@@ -36,3 +36,8 @@ export async function sendMessage(message: string, result: Result) {
   console.log(json);
   return json.data;
 }
+
+export async function getPdfUrl(filename: string) {
+  const pdfUrl = `${BACKEND_URL}/pdf/${filename}`;
+  return pdfUrl;
+}

@@ -3,6 +3,8 @@ export interface RecommendedAction {
   header: string;
   text: string;
   buttonText: string;
+  link?: string;
+  info?: string;
   iconType: string;
 }
 

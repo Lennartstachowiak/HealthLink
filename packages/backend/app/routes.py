@@ -1,6 +1,6 @@
-from fastapi import APIRouter, status
+from fastapi import APIRouter, HTTPException, status
 from app.schemas import ChatRequest
-from fastapi.responses import JSONResponse
+from fastapi.responses import FileResponse, JSONResponse
 from app.services import get_message_response
 from app.results import results
 import os
@@ -47,6 +47,8 @@ result = embedder.run(text="How can I ise the Mistral embedding models with Hays
 
 router = APIRouter()
 
+PDF_FOLDER = "./pdf"
+
 
 @router.get("/")
 async def index():
@@ -67,4 +69,29 @@ async def send_message(chat_request: ChatRequest):
     return JSONResponse(
         status_code=status.HTTP_200_OK,
         content={"data": response}
+    )
+
+# Resolve the PDF_FOLDER to ensure it's absolute and points to the correct location
+PDF_FOLDER = os.path.join(os.path.dirname(__file__), "pdf")
+
+
+@router.get("/pdf/{filename}")
+async def get_pdf(filename: str):
+    # Ensure the filename includes .pdf
+    if not filename.endswith(".pdf"):
+        filename = f"{filename}.pdf"
+
+    # Construct the full path to the PDF file
+    file_path = os.path.join(PDF_FOLDER, filename)
+    print(f"Looking for file at: {file_path}")  # Debugging output
+
+    # Check if the file exists
+    if not os.path.exists(file_path):
+        raise HTTPException(status_code=404, detail="PDF not found")
+
+    # Serve the PDF with an inline Content-Disposition header
+    return FileResponse(
+        file_path,
+        media_type="application/pdf",
+        headers={"Content-Disposition": f'inline; filename="{filename}"'}
     )

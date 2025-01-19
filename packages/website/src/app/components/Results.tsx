@@ -7,6 +7,7 @@ import { Result } from "@/types/results";
 import ResultSummary from "./ResultSummary";
 import { MetricDrawer } from "./MetricDrawer";
 import StatusChip from "./StatusChip";
+import { getPdfUrl } from "../actions";
 
 interface MetricProps {
   label: string;
@@ -37,6 +38,10 @@ interface TestResultsProps {
 
 export function Results({ result }: TestResultsProps) {
   const { updatedAt, title, summary, recommendedActions, metrics } = result;
+  const handleOpenPdf = async (filename: string) => {
+    const pdfUrl = await getPdfUrl(filename);
+    window.open(pdfUrl, "_blank");
+  };
   return (
     <Card className="rounded-2xl shadow-none">
       <CardHeader className="flex flex-row items-center justify-between">
@@ -48,6 +53,9 @@ export function Results({ result }: TestResultsProps) {
         <Button
           variant="outline"
           className="flex items-center gap-2 rounded-lg border bg-white px-4 py-2 text-sm text-gray-700"
+          onClick={() => {
+            handleOpenPdf(result.value);
+          }}
         >
           <span>View original file</span>
         </Button>
