@@ -36,16 +36,19 @@ export function ChatInput(props: ChatInputProps) {
     const handleScroll = () => {
       const { scrollTop, scrollHeight, clientHeight } =
         document.documentElement;
+      const buffer = 50;
 
       // Detect scroll direction
       if (scrollTop > lastScrollTop) {
         // Scrolling down
-        if (scrollTop + clientHeight >= scrollHeight - 50) {
+        if (scrollTop + clientHeight >= scrollHeight - buffer) {
           setIsMinimized(false); // Open chat when near the bottom
         }
       } else {
         // Scrolling up
-        setIsMinimized(true); // Close chat when scrolling up
+        if (scrollTop + clientHeight < scrollHeight - buffer) {
+          setIsMinimized(true); // Close chat when scrolling up
+        }
       }
 
       // Update the last scroll position
