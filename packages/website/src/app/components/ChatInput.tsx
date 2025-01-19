@@ -9,6 +9,8 @@ import { Card } from "@/components/ui/card";
 import { sendMessage } from "../actions";
 import { Result } from "@/types/results";
 import { LoadingChip } from "./LoadingChip";
+import remarkGfm from "remark-gfm";
+import Markdown from "react-markdown";
 
 interface Message {
   id: number;
@@ -80,6 +82,7 @@ export function ChatInput(props: ChatInputProps) {
       setInput("");
 
       const messageAnswer = await sendMessage(userMessage.text, result);
+      console.log("messageAnswer", messageAnswer);
       const agentMessage: Message = {
         id: Date.now(),
         text: messageAnswer,
@@ -135,28 +138,33 @@ export function ChatInput(props: ChatInputProps) {
               suggestedQuestions={suggestedQuestions}
               onClick={handleSuggestionClick}
             />
-            {messages.length > 0 ||
-              (loading && (
-                <div className="mb-4 max-h-96 overflow-y-auto rounded-lg border bg-gray-50 p-4">
-                  {messages.map((message) => (
-                    <div
-                      key={message.id}
-                      className={`mb-2 rounded-lg p-2 ${
-                        message.sender === "User"
-                          ? "ml-auto bg-blue-100 text-right"
-                          : "mr-auto bg-white"
-                      }`}
-                    >
-                      <p className="text-xs font-semibold text-gray-600">
-                        {message.sender}
-                      </p>
+            {(messages.length > 0 || loading) && (
+              <div className="mb-4 max-h-96 overflow-y-auto rounded-lg border bg-gray-50 p-4">
+                {messages.map((message) => (
+                  <div
+                    key={message.id}
+                    className={`mb-2 rounded-lg p-2 ${
+                      message.sender === "User"
+                        ? "ml-auto bg-blue-100 text-right"
+                        : "mr-auto bg-white"
+                    }`}
+                  >
+                    <p className="text-xs font-semibold text-gray-600">
+                      {message.sender}
+                    </p>
+                    {message.sender !== "User" ? (
+                      <Markdown remarkPlugins={[remarkGfm]}>
+                        {message.text}
+                      </Markdown>
+                    ) : (
                       <p className="text-sm text-gray-800">{message.text}</p>
-                    </div>
-                  ))}
-                  <LoadingChip isLoading={loading} />
-                  <div ref={messagesEndRef} />
-                </div>
-              ))}
+                    )}
+                  </div>
+                ))}
+                <LoadingChip isLoading={loading} />
+                <div ref={messagesEndRef} />
+              </div>
+            )}
 
             {/* Input */}
             <form onSubmit={handleSend} className="flex gap-2 items-center">

@@ -32,7 +32,7 @@ export async function sendMessage(message: string, result: Result) {
   if (!response.ok) {
     throw new Error("Failed to fetch results");
   }
-
-  const json = (await response.json()) as { data: string };
+  const json = await response.json();
+  console.log(json);
   return json.data;
 }
